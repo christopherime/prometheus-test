@@ -33,6 +33,36 @@ If you have a recent version of docker, might be interesting to create an alias:
 alias docker-compose="docker compose"
 ```
 
+## References variables
+
+- `$value` is the value of the metric
+- `$labels` is the labels array of the metric can be navigated with `$labels.<label_name>` You should visualize it as a json object
+- `$labels.<label_name>` can also be define in labels on prometheus target configuration
+
+```yaml
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    labels:
+      instance: 'prometheus'
+      datacenter: 'poneyland'
+```
+
+In this example, $labels.datacenter will return `poneyland` as string
+
+## Templating
+
+Interpolate $value as a string
+
+```yaml
+summary: "Host high CPU load 
+    {{ if le $value 0.1 }} Very low CPU load 
+    {{ else if gt $value 0.1}} Moderate load 
+    {{ else if gt $value 1}} Man this is loaded 
+    {{ end }}"
+```
+
+
 ## Useful links
 
 - [Prometheus](https://prometheus.io/)

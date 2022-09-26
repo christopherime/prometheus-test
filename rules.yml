@@ -7,4 +7,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: Host high CPU load (instance {{ $labels.instance }})
+          summary: "Host high CPU load 
+                {{ if le $value 0.1 }} Very low CPU load 
+                {{ else if gt $value 0.1}} Moderate load 
+                {{ else if gt $value 1}} Man this is loaded 
+                {{ end }}"
