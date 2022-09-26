@@ -1,11 +1,21 @@
 global:
 
 route:
-  receiver: 'null'
   group_by: ['alertname']
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 3h
+  routes:
+
+  # Send Watchdog alerts to the void
+  - match:
+      alertname: Watchdog
+    receiver: 'null'
+  
+  # Send all other alerts to the default receiver
+  - receiver: 'default'
 
 receivers:
-- name: 'null'
+  # null receiver does not send notifications anywhere
+  - name: 'null'
+  - name: 'default'
