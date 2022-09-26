@@ -1,10 +1,11 @@
 groups:
-  - name: example
+  - name: node_exporter
     rules:
-      - alert: HighRequestLatency
-        expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5
-        for: 10m
+      - alert: HostHighCpuLoad
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 0.1
+        for: 0m
         labels:
-          severity: page
+          severity: warning
         annotations:
-          summary: High request latency
+          summary: Host high CPU load (instance {{ $labels.instance }})
+          description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
