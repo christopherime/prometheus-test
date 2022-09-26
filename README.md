@@ -32,3 +32,11 @@ If you have a recent version of docker, might be interesting to create an alias:
 ```bash
 alias docker-compose="docker compose"
 ```
+
+## Useful links
+
+- [Prometheus](https://prometheus.io/)
+- [Prometheus template reference](https://prometheus.io/docs/prometheus/latest/configuration/template_reference/)
+- [Go Template reference](https://golang.org/pkg/text/template/)
+- [Prometheus alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
+- [Awesome Prometheus Rules](https://awesome-prometheus-alerts.grep.to/)
