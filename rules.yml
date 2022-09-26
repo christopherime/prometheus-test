@@ -8,4 +8,3 @@ groups:
           severity: warning
         annotations:
           summary: Host high CPU load (instance {{ $labels.instance }})
-          description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
