@@ -8,6 +8,8 @@ The package includes:
 - a local Prometheus server
 - a local node-exporter target
 - a local Alertmanager
+- a local Grafana dashboard (commented in the docker-compose)
+- a local Alertmanager-logger, express.js containerized app that will log any alerts detected in /logs files
 
 All of these services are running on the same network named "prometheus".
 
