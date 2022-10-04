@@ -1,0 +1,11 @@
+node_modules
+logs
+.gitignore
+docker-compose.yml
+Dockerfile
+README.md
+.eslintrc*
+LICENSE
+prometheus.yml
+rules.yml
+alertmanager.yml

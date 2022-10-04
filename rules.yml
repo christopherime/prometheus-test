@@ -1,14 +1,9 @@
 groups:
   - name: node_exporter
     rules:
-      - alert: HostHighCpuLoad
-        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 0.1
-        for: 0m
+      - alert: AlerteBidon
+        expr: windows_cs_hostname != 0
         labels:
-          severity: warning
+          severity: critical
         annotations:
-          summary: "Host high CPU load 
-                {{ if le $value 0.1 }} Very low CPU load 
-                {{ else if gt $value 0.1}} Moderate load 
-                {{ else if gt $value 1}} Man this is loaded 
-                {{ end }}"
+          summary: "Alerte Vraiment Bidon"

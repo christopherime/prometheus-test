@@ -37,3 +37,24 @@ services:
       - prometheus
     ports:
       - 9100:9100
+  alertmanager-logger:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - "alertmanager-logger:latest"
+    container_name: alertmanager-logger
+    image: alertmanager-logger:latest
+    volumes:
+      - ./logs:/usr/src/app/logs
+    networks:
+      - prometheus
+    ports:
+      - 9500:9500
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   networks:
+  #     - prometheus
+  #   ports:
+  #     - 3000:3000
