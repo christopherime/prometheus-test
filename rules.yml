@@ -1,9 +1,9 @@
 groups:
   - name: node_exporter
     rules:
-      - alert: AlerteBidon
-        expr: windows_cs_hostname != 0
+      - alert: BogusAlert
+        expr: up == 1
         labels:
           severity: critical
         annotations:
-          summary: "Alerte Vraiment Bidon"
+          summary: "Bogus Alert"
