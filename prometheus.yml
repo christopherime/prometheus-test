@@ -13,3 +13,25 @@ scrape_configs:
     static_configs:
       - targets:
         - "node-exporter:9100"
+        labels:
+          ip: "localhost:9100"
+          instance: "node-exporter"
+          type: "app"
+          env: "prod"
+          group: "sup-system"
+          resp: "stel"
+          lieu: "DCE"
+          theme: "infra"
+  - job_name: "cadvisor"
+    static_configs:
+      - targets:
+         - "cadvisor:9501"
+        labels:
+          ip: "localhost:9501"
+          instance: "cadvisor"
+          type: "container"
+          env: "qa"
+          group: "sup-system"
+          resp: "stel"
+          lieu: "DCL"
+          theme: "infra"

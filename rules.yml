@@ -7,3 +7,17 @@ groups:
           severity: critical
         annotations:
           summary: "Bogus Alert"
+
+      - alert: SecondBogusAlert
+        expr: sum(node_disk_info) > 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "Second bogus Alert"
+
+      - alert: ThirdBogusAlert
+        expr: up{job="cadvisor"}
+        labels:
+          severity: warning
+        annotations:
+          summary: "Third bogus Alert"

@@ -15,6 +15,7 @@ services:
       - prometheus
     ports:
       - 9090:9090
+
   alertmanager:
     image: prom/alertmanager:latest
     container_name: alertmanager
@@ -26,6 +27,7 @@ services:
       - prometheus
     ports:
       - 9093:9093
+
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
@@ -37,6 +39,7 @@ services:
       - prometheus
     ports:
       - 9100:9100
+
   alertmanager-logger:
     build:
       context: .
@@ -51,6 +54,20 @@ services:
       - prometheus
     ports:
       - 9500:9500
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - prometheus
+    ports:
+      - 9501:8080
+
   # grafana:
   #   image: grafana/grafana:latest
   #   container_name: grafana
