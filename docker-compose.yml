@@ -76,7 +76,7 @@ services:
   renderer:
     image: grafana/grafana-image-renderer:latest
     volumes:
-      - ./config/grafana/render/config.json:/usr/src/app/config.json
+      - ./config/grafana/renderer/config.json:/usr/src/app/config.json
     networks:
       - prometheus
     ports:

@@ -7,17 +7,27 @@ The package includes:
 
 - a local Prometheus server
 - a local node-exporter target
-- a local Alertmanager
-- a local Grafana dashboard (commented in the docker-compose)
-- a local Alertmanager-logger, express.js containerized app that will log any alerts detected in /logs files
+- a local cadvisor target
+- a local Alertmanager server
+- a local Grafana server
+- a local Grafana Renderer engine (only accessible by Grafana)
+<!-- - a local Alertmanager-logger, express.js containerized app that will log any alerts detected in /logs files -->
 
 All of these services are running on the same network named "prometheus".
 
 ## files
 
+Each config file is store in the config folder under the name of the service.
+
 - `prometheus.yml` is the Prometheus configuration file
 - `rules.yml` is the alerting rules file
 - `alertmanager.yml` is the alertmanager configuration file
+
+### Grafana
+
+- provisioning folder contains the default configuration for the Grafana datasources
+
+- rendering folder contains the configuration for the Grafana rendering engine
 
 ## Useful command
 
@@ -72,3 +82,4 @@ summary: "Host high CPU load
 - [Go Template reference](https://golang.org/pkg/text/template/)
 - [Prometheus alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
 - [Awesome Prometheus Rules](https://awesome-prometheus-alerts.grep.to/)
+- [Grafana Renderer doc](https://grafana.com/docs/grafana/latest/setup-grafana/image-rendering/)
