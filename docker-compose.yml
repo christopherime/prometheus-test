@@ -1,6 +1,8 @@
 version: '3.8'
 networks:
   prometheus:
+volumes:
+  grafana-data:
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -40,21 +42,6 @@ services:
     ports:
       - 9100:9100
 
-  alertmanager-logger:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      tags:
-        - "alertmanager-logger:latest"
-    container_name: alertmanager-logger
-    image: alertmanager-logger:latest
-    volumes:
-      - ./logs:/usr/src/app/logs
-    networks:
-      - prometheus
-    ports:
-      - 9500:9500
-
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
@@ -68,10 +55,26 @@ services:
     ports:
       - 9501:8080
 
-  # grafana:
-  #   image: grafana/grafana:latest
-  #   container_name: grafana
-  #   networks:
-  #     - prometheus
-  #   ports:
-  #     - 3000:3000
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - 'grafana-data:/var/lib/grafana'
+      - './config/grafana/provisioning:/etc/grafana/provisioning'
+    environment:
+      GF_RENDERING_SERVER_URL: http://renderer:8081/render
+      GF_RENDERING_CALLBACK_URL: http://grafana:3000/
+      GF_LOG_FILTERS: rendering:debug
+    networks:
+      - prometheus
+    ports:
+      - 3000:3000
+
+  renderer:
+    image: grafana/grafana-image-renderer:latest
+    volumes:
+      - './config/grafana/render/config.json:/usr/src/app/config.json'
+    networks:
+      - prometheus
+    ports:
+      - 8081
