@@ -2,15 +2,18 @@ version: '3.8'
 networks:
   prometheus:
 volumes:
-  grafana-data:
+  prometheus_data: {}
+  grafana-data: {}
 services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./rules.yml:/etc/prometheus/rules.yml
+      - prometheus_data:/prometheus
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus//rules.yml:/etc/prometheus/rules.yml
     command:
+      - '--storage.tsdb.path=/prometheus'
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-lifecycle'
     networks:
@@ -22,7 +25,7 @@ services:
     image: prom/alertmanager:latest
     container_name: alertmanager
     volumes:
-      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./config/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'      
     networks:
@@ -59,8 +62,8 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - 'grafana-data:/var/lib/grafana'
-      - './config/grafana/provisioning:/etc/grafana/provisioning'
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
     environment:
       GF_RENDERING_SERVER_URL: http://renderer:8081/render
       GF_RENDERING_CALLBACK_URL: http://grafana:3000/
@@ -73,7 +76,7 @@ services:
   renderer:
     image: grafana/grafana-image-renderer:latest
     volumes:
-      - './config/grafana/render/config.json:/usr/src/app/config.json'
+      - ./config/grafana/render/config.json:/usr/src/app/config.json
     networks:
       - prometheus
     ports:
