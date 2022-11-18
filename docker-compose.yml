@@ -33,6 +33,16 @@ services:
     ports:
       - 9093:9093
 
+  alertmanager-logger:
+    image: ghcr.io/christopherime/alertmanager-logger:main
+    container_name: alertmanager-logger
+    volumes:
+      - ./log:/log
+    networks:
+      - prometheus
+    ports:
+      - 9095:9095
+
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
