@@ -2,9 +2,9 @@ global:
 
 route:
   group_by: ['alertname']
-  group_wait: 5s
-  group_interval: 10s
-  repeat_interval: 20s
+  group_wait: 1s
+  group_interval: 5s
+  repeat_interval: 10s
   receiver: 'default'
   routes:
 
@@ -19,5 +19,4 @@ receivers:
 
   - name: 'default'
     webhook_configs:
-      - url: 'http://alertmanager-logger:9500/alerts'
-      - url: 'http://alertmanager-logger:9095/logger'
+      - url: 'http://172.27.220.197:9096/webhook'

@@ -2,7 +2,7 @@ groups:
   - name: node_exporter
     rules:
       - alert: BogusAlert
-        expr: up == 1
+        expr: up{job="node-exporter"} != 1
         labels:
           severity: critical
         annotations:
@@ -16,8 +16,15 @@ groups:
           summary: "Second bogus Alert"
 
       - alert: ThirdBogusAlert
-        expr: up{job="cadvisor"}
+        expr: up{job="cadvisor"} != 1
         labels:
           severity: warning
         annotations:
           summary: "Third bogus Alert"
+
+      - alert: ForthBogusAlert
+        expr: up{job="prometheus"} != 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "Forth bogus Alert"

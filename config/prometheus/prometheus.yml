@@ -9,6 +9,20 @@ alerting:
     - targets:
       - "alertmanager:9093"
 scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets:
+        - "prometheus:9090"
+        labels:
+          ip: "localhost:9090"
+          instance: "prometheus"
+          type: "app"
+          env: "test"
+          group: "sup-system"
+          resp: "me"
+          loc: "here"
+          theme: "monitoring"
+
   - job_name: "node-exporter"
     static_configs:
       - targets:
@@ -19,19 +33,19 @@ scrape_configs:
           type: "app"
           env: "prod"
           group: "sup-system"
-          resp: "stel"
-          lieu: "DCE"
+          resp: "me"
+          loc: "there"
           theme: "infra"
+
   - job_name: "cadvisor"
     static_configs:
       - targets:
-         - "cadvisor:9501"
+        - "172.27.220.197:9501"
         labels:
-          ip: "localhost:9501"
           instance: "cadvisor"
           type: "container"
           env: "qa"
           group: "sup-system"
-          resp: "stel"
-          lieu: "DCL"
+          resp: "you"
+          loc: "here"
           theme: "infra"
