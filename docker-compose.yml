@@ -91,3 +91,15 @@ services:
       - prometheus
     ports:
       - 8081
+
+  fluentd:
+    image: fluent/fluentd:v1.15-debian-1
+    container_name: fluentd
+    volumes:
+      - ./config/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./log:/log
+    networks:
+      - prometheus
+    ports:
+      - 24224:24224
+      - 24224:24224/udp
