@@ -92,14 +92,14 @@ services:
     ports:
       - 8081
 
-  fluentd:
-    image: fluent/fluentd:v1.15-debian-1
-    container_name: fluentd
+  fluent-bit:
+    image: cr.fluentbit.io/fluent/fluent-bit:2.0.6
+    container_name: fluent-bit
     volumes:
-      - ./config/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./config/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
       - ./log:/log
     networks:
       - prometheus
     ports:
-      - 24224:24224
+      - 24224:24224/tcp
       - 24224:24224/udp
