@@ -68,38 +68,38 @@ services:
     ports:
       - 9501:8080
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    volumes:
-      - grafana-data:/var/lib/grafana
-      - ./config/grafana/provisioning:/etc/grafana/provisioning
-    environment:
-      GF_RENDERING_SERVER_URL: http://renderer:8081/render
-      GF_RENDERING_CALLBACK_URL: http://grafana:3000/
-      GF_LOG_FILTERS: rendering:debug
-    networks:
-      - prometheus
-    ports:
-      - 3000:3000
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   volumes:
+  #     - grafana-data:/var/lib/grafana
+  #     - ./config/grafana/provisioning:/etc/grafana/provisioning
+  #   environment:
+  #     GF_RENDERING_SERVER_URL: http://renderer:8081/render
+  #     GF_RENDERING_CALLBACK_URL: http://grafana:3000/
+  #     GF_LOG_FILTERS: rendering:debug
+  #   networks:
+  #     - prometheus
+  #   ports:
+  #     - 3000:3000
 
-  renderer:
-    image: grafana/grafana-image-renderer:latest
-    volumes:
-      - ./config/grafana/renderer/config.json:/usr/src/app/config.json
-    networks:
-      - prometheus
-    ports:
-      - 8081
+  # renderer:
+  #   image: grafana/grafana-image-renderer:latest
+  #   volumes:
+  #     - ./config/grafana/renderer/config.json:/usr/src/app/config.json
+  #   networks:
+  #     - prometheus
+  #   ports:
+  #     - 8081
 
-  fluent-bit:
-    image: cr.fluentbit.io/fluent/fluent-bit:2.0.6
-    container_name: fluent-bit
-    volumes:
-      - ./config/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
-      - ./log:/log
-    networks:
-      - prometheus
-    ports:
-      - 24224:24224/tcp
-      - 24224:24224/udp
+  # fluent-bit:
+  #   image: cr.fluentbit.io/fluent/fluent-bit:2.0.6
+  #   container_name: fluent-bit
+  #   volumes:
+  #     - ./config/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+  #     - ./log:/log
+  #   networks:
+  #     - prometheus
+  #   ports:
+  #     - 24224:24224/tcp
+  #     - 24224:24224/udp
