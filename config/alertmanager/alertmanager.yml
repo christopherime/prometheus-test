@@ -19,4 +19,4 @@ receivers:
 
   - name: 'default'
     webhook_configs:
-      - url: 'http://alertmanager-logger:9095/logger'
+      - url: ''
