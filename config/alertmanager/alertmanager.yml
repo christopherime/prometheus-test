@@ -19,4 +19,4 @@ receivers:
 
   - name: 'default'
     webhook_configs:
-      - url: ''
+      - url: 'http://172.28.154.16:9097/logger'
